@@ -17,7 +17,8 @@ const getPessoa = (request, response) => {
           }
           response.status(200).json(results.rows)
         }
-  )
+        )
+  return 'oi'
 }
 const getPessoaById = (request, response) => {
   const id = parseInt(request.params.id)
