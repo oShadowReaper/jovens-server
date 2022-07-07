@@ -1,13 +1,13 @@
-const { request, response } = require('express')
-
 const Pool = require('pg').Pool
+
+const devConfig = `postgresql://${process.env.PG_USER}:${process.env.PG_PASSWORD}@${process.env.PG_HOST}:${process.env.PG_PORT}/${process.env.PG_DATABASE}&sslmode=require`
+const proConfig = process.env.DATABASE_URL;
+
 const db = new Pool({
-    host: 'ec2-3-217-14-181.compute-1.amazonaws.com',
-    database: 'dbfhkcoig67ihb',
-    user: 'qhkfruvlmqqdar',
-    password: 'baf69da30fd16b5334becae304f437465d3fee1cf39b558d932bc8eb5bc8add2',
-    port: '5432'
+    connectionString:
+    process.env.NODE_ENV === "production" ? proConfig : devConfig
 })
+
 const getPessoa = (request, response) => {
   console.log('GetPessoa');
   db.query('SELECT * FROM pessoa ORDER BY nome_completo ASC',
