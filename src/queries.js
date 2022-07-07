@@ -9,6 +9,7 @@ const db = new Pool({
     port: '5432'
 })
 const getPessoa = (request, response) => {
+  console.log('GetPessoa');
   db.query('SELECT * FROM pessoa ORDER BY nome_completo ASC',
         (error, results) =>{
           if (error) {
