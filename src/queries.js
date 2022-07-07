@@ -53,7 +53,6 @@ const updatePessoa = (request, response) => {
     response.status(201).send('perfil atualizado')
   })
 }
-
 module.exports = {
   getPessoa,
   getPessoaById,
