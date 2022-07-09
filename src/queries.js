@@ -10,7 +10,6 @@ const db = new Pool({
 })
 
 const getPessoa = (request, response) => {
-  console.log('GetPessoa');
   db.query('SELECT * FROM pessoa ORDER BY nome_completo ASC',
         (error, results) =>{
           if (error) {
@@ -36,8 +35,8 @@ const getPessoaById = (request, response) => {
 const createPessoa = (request, response) => {
   const {nome_completo, cpf, telefone, data_nascimento, email, senha} = request.body
   
-  db.query('INSERT INTO pessoa(nome_completo, cpf, telefone, data_nascimento, email, senha)VALUES($1, $2, $3, $4, $5, $6)',
-  [nome_completo, cpf, telefone, data_nascimento, email, senha], (error, results) => {
+    db.query('INSERT INTO pessoa(nome_completo, cpf, telefone, data_nascimento, email, senha)VALUES($1, $2, $3, $4, $5, $6)',
+      [nome_completo, cpf, telefone, data_nascimento, email, senha], (error, results) => {
     if (error){
       throw error
     }
