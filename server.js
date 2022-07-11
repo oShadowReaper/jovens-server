@@ -17,13 +17,11 @@ app.get('/',(request,response) => {
   response.json({info:'API REST running with success!'})
 })
 
+app.listen(PORT, () => {
+  console.log(`server is runing in https://jovens-db.herokuapp.com:${PORT}`)
+})
+
 app.get('/pessoa', routes.getPessoa)
 app.get('/pessoa/:id', routes.getPessoaById)
 app.post('/pessoa', routes.createPessoa)
 app.put('/pessoa/:id', routes.updatePessoa)
-
-
-
-app.listen(PORT, () => {
-  console.log(`server is runing in https://jovens-db.herokuapp.com:${PORT}`)
-})

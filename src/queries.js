@@ -16,9 +16,8 @@ const getPessoa = (request, response) => {
             throw error
           }
           response.status(200).json(results.rows)
-        }
-        )
-  return 'oi'
+        })
+  
 }
 const getPessoaById = (request, response) => {
   const id = parseInt(request.params.id)
@@ -34,6 +33,7 @@ const getPessoaById = (request, response) => {
 
 const createPessoa = (request, response) => {
   const {nome_completo, cpf, telefone, data_nascimento, email, senha} = request.body
+
     db.query('INSERT INTO pessoa(nome_completo, cpf, telefone, data_nascimento, email, senha)VALUES($1, $2, $3, $4, $5, $6)',
       [nome_completo, cpf, telefone, data_nascimento, email, senha], (error, results) => {
     if (error){
@@ -54,6 +54,7 @@ const updatePessoa = (request, response) => {
     response.status(201).send('perfil atualizado')
   })
 }
+
 module.exports = {
   getPessoa,
   getPessoaById,
