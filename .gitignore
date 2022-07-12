@@ -4,7 +4,6 @@
 /node_modules
 /.pnp
 /.expo 
-.env
 .pnp.js
 
 
