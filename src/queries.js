@@ -3,10 +3,10 @@ const { response } = require('express');
 const Pool = require('pg').Pool
 require("dotenv").config()
 
-const devConfig = `postgresql://${process.env.PG_USER}:${process.env.PG_PASSWORD}@${process.env.PG_HOST}:${process.env.PG_PORT}/${process.env.PG_DATABASE}&sslmode=require`
+const devConfig = `postgresql://${process.env.PG_USER}:${process.env.PG_PASSWORD}@${process.env.PG_HOST}:${process.env.PG_PORT}/${process.env.PG_DATABASE}`
 const proConfig = process.env.DATABASE_URL;
 
-const db = new Pool({
+ const db = new Pool({
     connectionString:
     process.env.NODE_ENV === "production" ? proConfig : devConfig
 })
@@ -23,9 +23,9 @@ const getPessoa = (request, response) => {
   
 }
 const getPessoaById = (request, response) => {
-  const id = parseInt(request.params.id)
+  const idpessoa = parseInt(request.params.idpessoa)
 
-  db.query('SELECT * FROM pessoa WHERE id = $1', [id],
+  db.query('SELECT * FROM pessoa WHERE idpessoa = $1', [idpessoa],
     (error, results) => {
       if (error) {
         throw error
@@ -49,11 +49,11 @@ const createPessoa = (request, response) => {
   })
 }
 const updatePessoa = (request, response) => {
-  const id = parseInt(request.params.id)
+  const idpessoa = parseInt(request.params.idpessoa)
   const {nome_completo, idade, cidade} = request.body
 
-  db.query('UPDATE pessoa set nome_completo = $1, idade = $2, cidade = $3 where id = $4',
-  [nome_completo, idade, cidade, id], (error, results) => {
+  db.query('UPDATE pessoa set nome_completo = $1, idade = $2, cidade = $3 where idpessoa = $4',
+  [nome_completo, idade, cidade, idpessoa], (error, results) => {
     if(error) {
       throw error
     }
@@ -72,9 +72,9 @@ const getEmpresa = (request, response) => {
   
 }
 const getEmpresaById = (request, response) => {
-  const id = parseInt(request.params.id)
+  const idempresa = parseInt(request.params.idempresa)
 
-  db.query('SELECT * FROM empresa WHERE id = $1', [id],
+  db.query('SELECT * FROM empresa WHERE idempresa = $1', [idempresa],
     (error, results) => {
       if (error) {
         throw error
@@ -98,11 +98,11 @@ const createEmpresa = (request, response) => {
   })
 }
 const updateEmpresa = (request, response) => {  
-  const id = parseInt(request.params.id)
+  const idempresa = parseInt(request.params.idempresa)
   const {nome_empresa, idade, cidade} = request.body
 
-  db.query('UPDATE empresa set nome_empresa = $1, idade = $2, cidade = $3 where id = $4',
-  [nome_empresa, idade, cidade, id], (error, results) => {
+  db.query('UPDATE empresa set nome_empresa = $1, idade = $2, cidade = $3 where idempresa = $4',
+  [nome_empresa, idade, cidade, idempresa], (error, results) => {
     if(error) {
       throw error
     }
@@ -120,9 +120,9 @@ const getPostagem = (request, response) => {
   
 }
 const getPostagemById = (request, response) => {
-  const id = parseInt(request.params.id)
+  const idpostagem = parseInt(request.params.idpostagem)
 
-  db.query('SELECT * FROM postagem WHERE id = $1', [id],
+  db.query('SELECT * FROM postagem WHERE idpostagem = $1', [idpostagem],
     (error, results) => {
       if (error) {
         throw error
@@ -132,25 +132,25 @@ const getPostagemById = (request, response) => {
 }
 
 const createPostagem = (request, response) => {
-  const {foto, data_postagem, titulo, descricao} = request.body
+  const {foto, data_postagem, titulo, descricao, idpessoa} = request.body
 
-    db.query('INSERT INTO postagem(foto, data_postagem, titulo, descricao)VALUES($1, $2, $3, $4)',
-      [foto, data_postagem, titulo, descricao ], (error, results) => {
+    db.query('INSERT INTO postagem(foto, data_postagem, titulo, descricao, idpessoa)VALUES($1, $2, $3, $4, $5)',
+      [foto, data_postagem, titulo, descricao, idpessoa ], (error, results) => {
     if (error){
       throw error
     }else{
       response.status(201).send('Post concluido')
 
     }
-    response.status(201).send('Post concluido')
+    
   })
 }
 const updatePostagem = (request, response) => {
-  const id = parseInt(request.params.id)
+  const idpostagem = parseInt(request.params.idpostagem)
   const {foto,data_postagem, titulo, descricao} = request.body
 
-  db.query('UPDATE postagem set foto = $1,  data_postagem = $2, titulo = $3 descricao id = $4',
-  [foto, data_postagem, titulo, descricao], (error, results) => {
+  db.query('UPDATE postagem set foto = $1,  data_postagem = $2, titulo = $3 descricao idpostagem = $4',
+  [foto, data_postagem, titulo, descricao, idpostagem], (error, results) => {
     if(error) {
       throw error
     }
@@ -159,9 +159,9 @@ const updatePostagem = (request, response) => {
 }
 
 const deletePostagem = (request, response) => {
-  const id = parseInt(request.params.id)
+  const idpostagem = parseInt(request.params.idpostagem)
 
-  db.query('DELETE FROM postagem WHERE id = $1', [id],
+  db.query('DELETE FROM postagem WHERE idpostagem = $1', [idpostagem],
       (error, results) => {
         if(error){
           throw error
