@@ -30,4 +30,3 @@ create table postagem (
  idpessoa int,
  foreign key(idpessoa) references pessoa(idpessoa)
 );
-

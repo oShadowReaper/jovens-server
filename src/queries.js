@@ -1,5 +1,4 @@
-const { response } = require('express');
-
+//const {response} = require('express');
 const Pool = require('pg').Pool
 require("dotenv").config()
 
@@ -35,17 +34,15 @@ const getPessoaById = (request, response) => {
 }
 
 const createPessoa = (request, response) => {
-  const {nome_completo, cpf, telefone, data_nascimento, email, senha} = request.body
-
+  const{nome_completo, cpf, telefone, data_nascimento, email, senha} = request.body
+  console.log(request.body)
     db.query('INSERT INTO pessoa(nome_completo, cpf, telefone, data_nascimento, email, senha)VALUES($1, $2, $3, $4, $5, $6)',
       [nome_completo, cpf, telefone, data_nascimento, email, senha], (error, results) => {
     if (error){
       throw error
     }else{
       response.status(201).send('Cadastro concluido')
-
     }
-    response.status(201).send('Cadastro concluido')
   })
 }
 const updatePessoa = (request, response) => {

@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
-const PORT = 3000
+const PORT =  5432
 const routes = require('./src/queries')
 const cors = require('cors')
 
