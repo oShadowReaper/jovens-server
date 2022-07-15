@@ -18,8 +18,7 @@ app.get('/',(request,response) => {
 })
 
 app.listen(PORT, () => {
-  console.log(`server is runing in https://jovens-db.herokuapp.com`)
-})
+  console.log(`server is runing in https://jovens-db.herokuapp.com:${PORT}`)})
 
 app.get('/pessoa', routes.getPessoa)
 app.get('/pessoa/:idpessoa', routes.getPessoaById)
